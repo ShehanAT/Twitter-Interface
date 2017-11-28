@@ -1,6 +1,6 @@
 # Twitter-Interface
 ### TreeHouse Full Stack Javascript Techdegree Project Unit 7
-### This project needs a config.js file in this format:
+### This project needs a config.js file in the root directory of this format:
 
 ```
 module.exports =  {
