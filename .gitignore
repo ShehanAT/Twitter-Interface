@@ -1,0 +1,13 @@
+.DS_Store
+.sass-cache
+
+# Dependency directories
+node_modules/
+
+# private info
+config.js
+
+# Logs
+logs
+*.log
+npm-debug.log*
