@@ -21,9 +21,9 @@ app.use(express.static(__dirname + '/views'));
 
 
 app.get('/', function(req, res, next) { //get request for the home page
-    var T = new Twit(config);
+    var T = new Twit(config);//configuring the config.js file
     
-      Promise.all([
+      Promise.all([//using promises to get the required information, 5 objects for each get request
             T.get('friends/list', {
                 count: 5 }),
             T.get('statuses/user_timeline', {
@@ -44,16 +44,13 @@ app.get('/', function(req, res, next) { //get request for the home page
                     timelineInfo: getUserTimeline.data,
                     recievedDMs: getDirectMessage.data,
                     sentDMs: getSentDirectMessage.data,
-                    moment: moment
+                    moment: moment//needed to format dates
                 }
-                res.render('./partials/index.pug', {allInfo})
+                res.render('./partials/index.pug', {allInfo})//render the pug file with the required information
             })
     })    
 
- //using then to collect API data
-
-
-app.use('/*', function(req, res, next){
+app.use('/*', function(req, res, next){//route for not found link, displays page with redirect option to home page
     var err = new Error('Not Found');
     err.status = 404;
     res.status(404).render('error/error.pug');
@@ -62,24 +59,23 @@ app.use('/*', function(req, res, next){
 
 var server = app.listen(port);
 
-var io = require('socket.io').listen(server);
-io.sockets.on('connection', function(socket){
-    socket.broadcast.emit('hi');
+var io = require('socket.io').listen(server);//using socket.io to generate tweeted message without refreshing page
+io.sockets.on('connection', function(socket){//starting the socket.io connnection
     socket.on('tweet_message', function(message){
-        var moment = require('moment');
-        var T = new Twit(config);
+        var moment = require('moment');//variables to store the screen name, name, profile image of user
+        var T = new Twit(config);//configuring the config.js file 
         var screenName = '';
         var name = '';
         var profileImage = '';
-        var DateNow = moment(Date.now()).format('llll')
-        T.post('statuses/update', {
+        var DateNow = moment(Date.now()).format('llll')//using moment to format date.now()
+        T.post('statuses/update', {//posting the tweet to Twitter 
             status: message}).then(() => {
-                T.get('account/verify_credentials', {})
+                T.get('account/verify_credentials', {})//verifying credentials, requesting user data object
                 .then((info) => {
-                    screenName = info.data.screen_name;
+                    screenName = info.data.screen_name;//storing the user information in variables
                     name = info.data.name;
                     profileImage = info.data.profile_image_url;
-                }).then(()=>{
+                }).then(()=>{//making new li tag with the newly tweeted message, user screen name, name, and date
                     var newTweet = `
                     <li>
                     <strong class="app--tweet--timestamp">${DateNow}</strong>
@@ -128,9 +124,9 @@ io.sockets.on('connection', function(socket){
                       </li>
                     </ul>
                   </li>`;
-                    io.emit('tweet_message', newTweet);
+                    io.emit('tweet_message', newTweet);//sending the new li object to be rendered
                 })
             })  
     });
 });
-server.listen(port);
+server.listen(port);//server listening on port 3000
