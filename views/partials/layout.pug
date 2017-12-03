@@ -6,15 +6,15 @@ html(lang="en")
         title Twitter Client
         meta(name='description', content='')
         meta(name='author', content='')
-  
+        script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
         meta(name='viewport', content='width=device-width, initial-scale=1')
-   
         link(href='https://fonts.googleapis.com/css?family=Work+Sans:400,600', rel='stylesheet', type='text/css')
-    
-        link(rel='stylesheet', type='text/css', href='../css/global.css')
+        script(src='/socket.io/socket.io.js')
+        link(rel='stylesheet', type='text/css', href='../../css/global.css')
     body 
             
         include header.pug
-        include body.pug
+        block content
         
         

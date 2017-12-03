@@ -1,6 +1,5 @@
 var express = require('express');
 const Twit = require('twit');//twitter API package
-const fs = require('fs');
 var app = express();
 const pug = require('pug');
 const path = require('path');
@@ -11,167 +10,127 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
-var T = new Twit(config);//configuring the config.js with the Twitter API to check for validation
 
-
-app.set('port', 3000);
+const port = 3000;
 //loading view engine
 app.set('views', path.join(__dirname + '/views'));
 app.set('view engine', 'pug');
+app.use(express.static(__dirname + "/"));
 app.use(express.static(__dirname + '/css'));
-app.use(express.static(__dirname + ""));
 app.use(express.static(__dirname + '/views'));
 
-app.use('/static', express.static('public'));
 
-
-var followers = []; //big list of arrays used to store the API data
-var timeline = [];
-var timeline_time = [];
-var recieved_dms = [];
-var recieved_dms_time = [];
-var tweets = {};
-var dmprofile_img = [];
-var dms = [];
-var sent_dms = [];
-var sent_dms_time = [];
-var main_dms = [];
-var followersCount;
-var screen_Name;
-var profile_img;
-var profileBackground;
-var loadData = Promise.defer(); //Making a defered promise object
-var promise = loadData.promise; //promise object
-
-
-promise.then((value) => { //using then to collect API data 
-    T.get('friends/list', {
-        count: 5
-    }, function(err, data, response) {
-        followers.push(data);
-    })
-    T.get('statuses/user_timeline', {
-        count: 5
-    }, function(err, data, response) { //using twitter API to get user timeline info
-        for (var i = 0; i < 5; i++) {
-            timeline.push(data[i]);
-            timeline_time.push(data[i].created_at.slice(0, 11) + data[i].created_at.slice(26, 30) + data[i].created_at.slice(10, 20));
-
-        }
-        profileBackground = timeline[0].user.profile_banner_url; //extracting and storing profile image url
-        followersCount = timeline[0].user.friends_count; //extracting and storingfriends count
-        screen_Name = timeline[0].user.screen_name; //extracting and storing scree name
-        profile_img = timeline[0].user.profile_image_url; //extracting and storing profile image url 
-    });
-    T.get('direct_messages', {
-        count: 5
-    }, function(err, data, response) { //using twitter API to get user direct messages
-        for (var i = 0; i < 5; i++) {
-            recieved_dms.push(data[i].text);
-            recieved_dms_time.push(data[i].created_at.slice(0, 11) + data[i].created_at.slice(26, 30)); //formating the data to YYYY-MM-DD
-        }
-        dms.push(data);
-    });
-    T.get('direct_messages/sent', {
-        count: 5
-    }, function(err, data, response) { //using twitter API to get direct messages that were sent by the user
-        for (var i = 0; i < data.length; i++) {
-            sent_dms.push(data[i].text);
-            sent_dms_time.push(data[i].created_at.slice(0, 11) + data[i].created_at.slice(26, 30)); //formating the data to YYYY-MM-DD
-        }
-
-    });
-    app.get('/', function(req, res, next) { //get request for the home page
-        res.render('./partials/layout.pug', {
-            profileBackground,
-            timeline_time,
-            recieved_dms_time,
-            sent_dms_time,
-            recieved_dms,
-            sent_dms,
-            dmprofile_img,
-            followers,
-            timeline,
-            dms,
-            followersCount,
-            screen_Name,
-            profile_img,
-            sent_dms
-        }); //sending all the stored array info to the layout.pug
-    });
-    app.post('/', function(req, res, next) { //post request for when the tweet button is clicked 
-        res.cookie('username', req.body.username);
-        T.post('statuses/update', {
-            status: req.body.username
-        }, function(err, data, response) { //tweeting the message in the input field to Twitter
+app.get('/', function(req, res, next) { //get request for the home page
+    var T = new Twit(config);
+    
+      Promise.all([
+            T.get('friends/list', {
+                count: 5 }),
             T.get('statuses/user_timeline', {
-                count: 5
-            }, function(err, data, response) { //getting the 5 most recent tweets from the user's account
-                timeline = [];
-                timeline_time = [];
-                followersCount;
-                screen_Name;
-                profile_img;
-
-                for (var i = 0; i < 5; i++) {//looping through 5 messages and pushing them into an array
-                    timeline.push(data[i]);
-                    timeline_time.push(data[i].created_at.slice(0, 11) + data[i].created_at.slice(26, 30) + data[i].created_at.slice(10, 20));
-
+                count: 5 }),
+            T.get('direct_messages', {
+                count: 5 }),
+            T.get('direct_messages/sent', {
+                count: 5 }),
+        ]).then(([
+                getFriendsList,
+                getUserTimeline,
+                getDirectMessage,
+                getSentDirectMessage,
+            ]) => {
+                const moment = require('moment');
+                var allInfo = {
+                    friendsList: getFriendsList.data,
+                    timelineInfo: getUserTimeline.data,
+                    recievedDMs: getDirectMessage.data,
+                    sentDMs: getSentDirectMessage.data,
+                    moment: moment
                 }
+                res.render('./partials/index.pug', {allInfo})
+            })
+    })    
 
-                followersCount = timeline[0].user.followers_count;
-                screen_Name = timeline[0].user.screen_name;
-                profile_img = timeline[0].user.profile_image_url;
-                res.render('./partials/layout.pug', {//sending the API data stored in arrays to layout.pug
-                    profileBackground,
-                    timeline_time,
-                    recieved_dms_time,
-                    sent_dms_time,
-                    recieved_dms,
-                    sent_dms,
-                    dmprofile_img,
-                    followers,
-                    timeline,
-                    dms,
-                    followersCount,
-                    screen_Name,
-                    profile_img,
-                    sent_dms
-                });
-            });
-
-        })
-    })
-    app.use((err, res, body) => {//rending error page if invalid url is typed
-        var err = new Error('Not Found');
-        err.status = 404;
-        res.status(404).render('error/error.pug');
-    });
+ //using then to collect API data
 
 
-}).catch((value) => {//if error occurs render the error page
-    app.use((req, res) => {
-        res.status(404).render('error/error.pug');
-    });
+app.use('/*', function(req, res, next){
+    var err = new Error('Not Found');
+    err.status = 404;
+    res.status(404).render('error/error.pug');
 });
 
 
-app.listen(app.get('port'), function() {//app listening 
-    (function funcOne(input) {//function that checks internet connectivity
-        var request = require('request');
-        request.post('https://www.google.ca/', {
-            json: true,
-            body: input
-        }, function(err, res, body) {
-            if (!err && res.statusCode === 405) {
-                loadData.resolve();
-            } else {//if offline logs error message and renders error page
-                console.log(err);
-                app.use((req, res) => {
-                    res.status(404).render('error/error.pug');
-                });
-            }
-        });
-    })();
-    console.log('Im listening on port: ' + app.get('port'));//server up message
+var server = app.listen(port);
+
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function(socket){
+    socket.broadcast.emit('hi');
+    socket.on('tweet_message', function(message){
+        var moment = require('moment');
+        var T = new Twit(config);
+        var screenName = '';
+        var name = '';
+        var profileImage = '';
+        var DateNow = moment(Date.now()).format('llll')
+        T.post('statuses/update', {
+            status: message}).then(() => {
+                T.get('account/verify_credentials', {})
+                .then((info) => {
+                    screenName = info.data.screen_name;
+                    name = info.data.name;
+                    profileImage = info.data.profile_image_url;
+                }).then(()=>{
+                    var newTweet = `
+                    <li>
+                    <strong class="app--tweet--timestamp">${DateNow}</strong>
+                    <a class="app--tweet--author">
+                      <div class="app--avatar" style="background-image: url(${profileImage})">
+                        <img src="${profileImage}" />
+                      </div>
+                      <h4>${name}</h4> 
+                      @ ${screenName}
+                    </a>
+                    <p>`+ message +`</p>
+                    <ul class="app--tweet--actions circle--list--inline">
+                      <li>
+                        <a class="app--reply">
+                          <span class="tooltip">Reply</span>
+                          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 38 28" xml:space="preserve">
+                            <path d="M24.9,10.5h-8.2V2.8c0-1.1-0.7-2.2-1.7-2.6c-1-0.4-2.2-0.2-3,0.6L0.8,12c-1.1,1.1-1.1,2.9,0,4L12,27.2
+                            c0.5,0.5,1.2,0.8,2,0.8c0.4,0,0.7-0.1,1.1-0.2c1-0.4,1.7-1.5,1.7-2.6v-7.7h8.2c3.3,0,6,2.5,6,5.6v1.3c0,2,1.6,3.5,3.5,3.5
+                            s3.5-1.6,3.5-3.5v-1.3C38,16.2,32.1,10.5,24.9,10.5z"/>
+                          </svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="app--retweet">
+                          <span class="tooltip">Retweet</span>
+                          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 28" xml:space="preserve">
+                            <path d="M25.2,22.4H13.1v-9.3h4.7c1.1,0,2.2-0.7,2.6-1.7c0.4-1,0.2-2.3-0.6-3.1l-7.5-7.5c-1.1-1.1-2.9-1.1-4,0L0.8,8.3
+                            c-0.8,0.8-1,2-0.6,3.1c0.4,1,1.5,1.7,2.6,1.7h4.7v12.1c0,1.5,1.3,2.8,2.8,2.8h14.9c1.5,0,2.8-1.3,2.8-2.8
+                            C28,23.7,26.7,22.4,25.2,22.4z"/>
+                            <path d="M49.8,16.7c-0.4-1-1.5-1.7-2.6-1.7h-4.7V2.8c0-1.5-1.3-2.8-2.8-2.8H24.8C23.3,0,22,1.3,22,2.8s1.3,2.8,2.8,2.8h12.1v9.3
+                            h-4.7c-1.1,0-2.2,0.7-2.6,1.7c-0.4,1-0.2,2.3,0.6,3.1l7.5,7.5c0.5,0.5,1.3,0.8,2,0.8c0.7,0,1.4-0.3,2-0.8l7.5-7.5
+                            C50,18.9,50.2,17.7,49.8,16.7z"/>
+                          </svg>
+                          <strong>0</strong>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="app--like">
+                          <span class="tooltip">Like</span>
+                          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 28" xml:space="preserve">
+                            <path class="st0" d="M25.8,0c-3.6,0-6.8,2.1-8.3,5.1C16,2.1,12.9,0,9.2,0C4.1,0,0,4.1,0,9.2C0,21.4,17.3,28,17.3,28S35,21.3,35,9.2
+                            C35,4.1,30.9,0,25.8,0L25.8,0z"/>
+                          </svg>
+                          <strong>0</strong>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>`;
+                    io.emit('tweet_message', newTweet);
+                })
+            })  
+    });
 });
+server.listen(port);

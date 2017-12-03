@@ -10,20 +10,18 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
-    "http": "0.0.0",
-    "request": "^2.83.0",
-    "xmlhttprequest": "^1.8.0"
-  },
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
     "jade": "^1.11.0",
-    "moment": "^2.19.1",
+    "moment": "^2.19.3",
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.4",
+    "request": "^2.83.0",
     "serve-favicon": "^2.4.5",
-    "twit": "^2.2.9"
-  }
+    "socket.io": "^2.0.4",
+    "twit": "^2.2.9",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "dependencies": {}
 }
