@@ -12,4 +12,4 @@ module.exports =  {
    };
 ```
 ### Then run npm install in the console
-### Finally npm start to start the server
+### Finally npm start to start the server 
