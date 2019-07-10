@@ -13,3 +13,8 @@ module.exports =  {
 ```
 ### Then run npm install in the console
 ### Finally npm start to start the server 
+
+
+### Updates:
+* Since GET direct_messages has been depriciated GET direct_messages/events/list will be used instead
+* Adding search for tweets feature in the near future
