@@ -16,5 +16,6 @@ module.exports =  {
 
 
 ### Updates:
+* First priority is to implement OAuth sign in with Twitter
 * Since GET direct_messages has been depriciated GET direct_messages/events/list will be used instead
 * Adding search for tweets feature in the near future
