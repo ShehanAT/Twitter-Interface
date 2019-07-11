@@ -13,3 +13,6 @@ module.exports =  {
 ```
 ### Then run npm install in the console
 ### Finally npm start to start the server 
+
+### Logs:
+* use #allow-insecure-localhost on chrome to bypass invalid certificate for https://localhost error

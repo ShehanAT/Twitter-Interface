@@ -85,24 +85,33 @@ block content
                 | Conversation with 
                 a
               ul.app--message--conversation
-               for recieved in allInfo['recievedDMs']
-                li.app--message #{recieved.sender_screen_name}
-                  .app--avatar(style=`background-image: url(${recieved.sender.profile_image_url})`)
-                    img
-                  p.app--message--text #{recieved.text}
-                  p.app--message--timestamp= allInfo.moment(Date.parse(recieved.created_at)).format('llll')
+               if allInfo["recievedDMs"].events.length == 0
+                p.description No Direct Messages Found
+               else 
+                for recieved in allInfo['recievedDMs']
+                  li.app--message #{recieved.sender_screen_name}
+                    .app--avatar(style=`background-image: url(${recieved.sender.profile_image_url})`)
+                      img
+                    p.app--message--text #{recieved.text}
+                    p.app--message--timestamp= allInfo.moment(Date.parse(recieved.created_at)).format('llll')
+                  
           ul.app--message--list
             li
               h3
                 | Sent direct messages 
             
               ul.app--message--conversation
-               for sent in allInfo['sentDMs']
-                li.app--message--me
-                  .app--avatar(style=`background-image: url(${sent.sender.profile_image_url})`)
-                    img
-                  p.app--message--text #{sent.text}
-                  p.app--message--timestamp= allInfo.moment(Date.parse(sent.created_at)).format('llll')
+               if allInfo["sentDMs"].events.length == 0
+                p.description No Direct Messages Found
+               else
+                for sent in allInfo['sentDMs']
+                  li.app--message--me
+                    .app--avatar(style=`background-image: url(${sent.sender.profile_image_url})`)
+                      img
+                    p.app--message--text #{sent.text}
+                    p.app--message--timestamp= allInfo.moment(Date.parse(sent.created_at)).format('llll')
+                
+               
     script.
      $(function(){
        var socket = io();

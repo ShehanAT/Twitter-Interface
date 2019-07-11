@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm install && node app.js"
+    "start": "node --inspect app.js",
+    "dev": "nodemon --inspect app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,11 +18,20 @@
     "moment": "^2.19.3",
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.4",
-    "request": "^2.83.0",
+    "request": "^2.88.0",
     "serve-favicon": "^2.4.5",
     "socket.io": "^2.0.4",
     "twit": "^2.2.9",
     "xmlhttprequest": "^1.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express-session": "^1.16.2",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "request-promise": "^4.2.4"
+  }
 }
