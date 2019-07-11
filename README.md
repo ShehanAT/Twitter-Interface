@@ -15,4 +15,5 @@ module.exports =  {
 ### Finally npm start to start the server 
 
 ### Logs:
+* Added create-react-app client for React frontend 
 * use #allow-insecure-localhost on chrome to bypass invalid certificate for https://localhost error
