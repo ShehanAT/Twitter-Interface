@@ -1,6 +1,6 @@
 require("dotenv").config();
 var express = require("express");
-// const Twit = require("twit"); //twitter API package
+const Twit = require("twit"); //twitter API package
 var app = express();
 // const pug = require("pug");
 const fs = require("fs");
@@ -11,13 +11,14 @@ const authRouter = require("./lib/auth.router");
 const socketio = require("socket.io");
 const path = require("path");
 const http = require("http");
-const https = require("https");
+// const https = require("https");
 //path.resolve() resolves a sequence of paths or path segments into an absolute path.
-const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser"); //parses incoming request bodies in a middleware before your handler
 // var config = require("./config.js");
 const cors = require("cors");
 const { CLIENT_ORIGIN } = require("./setup");
+const config = require("./config");
+const { Strategy: TwitterStrategy } = require("passport-twitter");
 let server; //variable to store server object
 
 //On an HTTPS page, any requests to load Javasript from an HTTP URL
@@ -32,11 +33,11 @@ if (process.env.NODE_ENV == "production") {
   server = http.createServer(app);
 } else {
   //for development environment we create a https server
-  const certOptions = {
-    key: fs.readFileSync(path.resolve("cert/localhost.key")), //points to dirname/cert/localhost.key
-    cert: fs.readFileSync(path.resolve("cert/localhost.crt"))
-  };
-  server = https.createServer(certOptions, app);
+  // const certOptions = {
+  //   key: fs.readFileSync(path.resolve("cert/server.key")), //points to dirname/cert/localhost.key
+  //   cert: fs.readFileSync(path.resolve("cert/server.crt"))
+  // };
+  server = http.createServer(app);
 }
 
 app.use(
@@ -56,7 +57,6 @@ app.use(
 app.use(express.json());
 app.use(passport.initialize());
 passportInit();
-// app.use(cookieParser());
 
 // const port = process.env.PORT || 3000;
 //loading view engine
@@ -72,10 +72,22 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+//Allows the app to accept req/res in JSON format
+app.use(express.json());
+//Allows the app to use passport
+app.use(passport.initialize());
+
 //saveUninitialized: true = allows us to attach the socket id to the session
 //before we have authenticated the user
 app.use(
   session({
+    //creates a session middleware with the given options
+    //Note: session data is not saved in the cookie itself, just the session ID is saved in the cookie
+    //Session data is stored server-side
+    //This module no longer needs cookie-parser, this module now directly reads
+    //and writes cookies on req/res
+    //Cookies are small files which are stored on a user's computer.
+    //Cookies are designed to hold a modest amount of data specific to a particular client and website.
     secret: process.env.SESSIONSECRET,
     resave: true,
     saveUninitialized: true
@@ -85,63 +97,105 @@ app.use(
 const io = socketio(server);
 app.set("io", io);
 
+const TWITTER_CONFIG = {
+  consumerKey: process.env.CONSUMERKEY,
+  consumerSecret: process.env.CONSUMERSECRET,
+  callbackURL: "http://127.0.0.1:3000/twitter/callback" //using https instead of http because we made https://localhost secure so https should work
+};
+
+//allows us to save the user into the session
+passport.serializeUser((user, cb) => cb(null, user));
+passport.deserializeUser((obj, cb) => cb(null, obj));
+
+//Basic setup with password and Twitter
+passport.use(
+  new TwitterStrategy(
+    TWITTER_CONFIG,
+    (accessToken, refreshToken, profile, cb) => {
+      //getting the profile info and storing it in the user variable
+      const user = {
+        name: profile.username,
+        photo: profile.photos[0].value.replace(/_normal/, "")
+      };
+      cb(null, user);
+    }
+  )
+);
 //Catch a start up request so the sleepy Heroku instance
 //can be responsive as soon as possible, when app is deployed to production
 app.get("/wake-up", (req, res) => {
   res.send("Connected frontend to backend");
 });
 
-//Directing other requests to the auth router
-app.use("/", authRouter);
+//Middleware that triggers the Passportjs authentication process
+const twitterAuth = passport.authenticate("twitter");
 
-//app.get("/", function(req, res, next) {
-//get request for the home page
-// var T = new Twit(config); //configuring the config.js file
+//This custom middleware picks off the socket id(that was put on req.query in client side OAuth component's openPopUp() method)
+//and stores it in the session so we can send back the right information to the right socket
+const addSocketIdToSession = (req, res, next) => {
+  req.session.socketId = req.query.socketId; //storing socket id in session
+  next();
+};
 
-// Promise.all([
-//   //using promises to get the required information, 5 objects for each get request
-//   T.get("friends/list", {
-//     count: 5
-//   }),
-//   T.get("statuses/user_timeline", {
-//     count: 5
-//   }),
-//   T.get("direct_messages/events/list", {
-//     count: 5
-//   }),
-//   T.get("direct_messages/events/list", {
-//     count: 5
-//   })
-// ])
-//   .then(
-//     ([
-//       getFriendsList,
-//       getUserTimeline,
-//       getDirectMessage,
-//       getSentDirectMessage
-//     ]) => {
-//       const moment = require("moment");
-//       var allInfo = {
-//         friendsList: getFriendsList.data,
-//         timelineInfo: getUserTimeline.data,
-//         recievedDMs: getDirectMessage.data,
-//         sentDMs: getSentDirectMessage.data,
-//         moment: moment //needed to format dates
-//       };
-//       //if (allInfo["recievedDMs"][0].sender.profile_image_url) {
-//       res.render("./partials/index.pug", { allInfo }); //render the pug file with the required information
-//       // } else {
-//       //   console.log(allInfo);
-//       //   res.status(500).render("./error/error.pug");
-//       // }
-//     }
-//   )
-//   .catch((err) => {
-//     var err = new Error("Not Found");
-//     err.status = 500;
-//     res.status(500).render("error/error.pug");
-//   });
-//});
+//this is the endpoint triggered by the popup from the client's OAuth component
+//which starts the whole authentication process
+app.get("/twitter", addSocketIdToSession, twitterAuth);
+
+//this is the callback url set in the Twitter app page's callback url section,
+//Twitter will send the user information to this endpoint, then twitterAuth middleware
+//will attach the user to req.user and then the user information is sent to
+//the client via the socketId that is stored in the session
+app.get("/twitter/callback", twitterAuth, (req, res) => {
+  io.in(req.session.socketId).emit("user", req.user);
+  res.end();
+});
+
+app.post("/testing", function(req, res, next) {
+  console.log(req.body.user);
+  var T = new Twit(config); //configuring the config.js file
+  var screen_name = req.body.user.screen_name;
+  Promise.all([
+    //using promises to get the required information, 5 objects for each get request
+    T.get("friends/list", { screen_name: screen_name, count: 5 }),
+    T.get("statuses/user_timeline", {
+      screen_name: screen_name,
+      count: 5
+    }),
+    T.get("followers/list", {
+      screen_name: screen_name,
+      count: 5
+    }),
+    T.get("favorites/list", {
+      screen_name: screen_name,
+      count: 5
+    })
+  ]).then(
+    ([getFriendsList, getUserTimeline, getFollowerList, getLikedTweets]) => {
+      //
+      const moment = require("moment");
+      var allInfo = {
+        friendsList: getFriendsList.data,
+        timelineInfo: getUserTimeline.data,
+        followerList: getFollowerList.data,
+        likedTweets: getLikedTweets.data,
+        moment: moment //needed to format dates
+      };
+      //       //if (allInfo["recievedDMs"][0].sender.profile_image_url) {
+      //       res.render("./partials/index.pug", { allInfo }); //render the pug file with the required information
+      //       // } else {
+      //       //   console.log(allInfo);
+      //       //   res.status(500).render("./error/error.pug");
+      //       // }
+      res.send(allInfo);
+    }
+  );
+  //   )
+  //   .catch((err) => {
+  //     var err = new Error("Not Found");
+  //     err.status = 500;
+  //     res.status(500).render("error/error.pug");
+  //   });
+});
 
 server.listen(process.env.PORT || 3000, () => {
   console.log("listening...");
