@@ -15,5 +15,6 @@ module.exports =  {
 ### Finally npm start to start the server 
 
 ### Logs:
-* Added create-react-app client for React frontend 
-* use #allow-insecure-localhost on chrome to bypass invalid certificate for https://localhost error:white-checkmark:
+* Added create-react-app client for React frontend:white_check_mark:
+* use #allow-insecure-localhost on chrome to bypass invalid certificate for https://localhost error:white_check_mark:
+* Config project with webpack then use pug-as-jsx library to transcompile pug to jsx for Twitter component
