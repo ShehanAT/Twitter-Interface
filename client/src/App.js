@@ -1,17 +1,15 @@
 import React, { Component } from "react";
-import io from "socket.io-client";
+import loadable from "@loadable/component";
 import { API_URL } from "./config";
 import "./App.scss";
 import { Box, Card, Image, Heading, Text } from "rebass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import FontAwesome from "react-fontawesome";
-import Footer from "./components/Footer";
+import io from "socket.io-client";
 import Twitter from "./components/Twitter";
 import ErrorBoundary from "./components/ErrorBoundary";
-console.log(API_URL);
+import Footer from "./components/Footer";
 const socket = io(API_URL);
-const providers = ["twitter"];
 
 export default class App extends Component {
   constructor() {
@@ -77,45 +75,46 @@ export default class App extends Component {
     const { name, photo } = this.state.user; //equivalent to const name = this.state.user.name, const photo = this.state.user.photo
     const { disabled } = this.state;
     return (
-      <div className="App">
-        <div className={"container"}>
-          {/* If there is a user show the name and photo */}
-          {/* If no user logged in show the login with Twitter button */}
-          {name ? (
-            <ErrorBoundary>
+      <ErrorBoundary>
+        <div className="App">
+          <div className={"container"}>
+            {/* If there is a user show the name and photo */}
+            {/* If no user logged in show the login with Twitter button */}
+            {name ? (
               <Twitter name={name} photo={photo} closeCard={this.closeCard} />
-            </ErrorBoundary>
-          ) : (
-            <div className={"button"}>
-              <button
-                onClick={this.startAuth.bind(this)}
-                className={`twitter ${disabled}`}
-              >
-                <FontAwesomeIcon icon={faTwitter} />
-                Sign in with Twitter
-              </button>
-              <Card
-                fontSize={6}
-                fontWeight="bold"
-                width={[1 / 5, 1 / 5, 1 / 5]} //first value is for < 640px, second value is for < 830px,third value is for > 831px
-                css={{
-                  display: "block"
-                }}
-                p={3}
-                mx={2}
-                my={0}
-                bg="#f6f6ff"
-                borderRadius={10}
-                alignSelf="center"
-                boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
-              >
-                Sample Text
-              </Card>
-            </div>
-          )}
+            ) : (
+              <div className={"button"}>
+                <button
+                  onClick={this.startAuth.bind(this)}
+                  className={`twitter ${disabled}`}
+                >
+                  <FontAwesomeIcon icon={faTwitter} />
+                  Sign in with Twitter
+                </button>
+                <Card
+                  fontSize={6}
+                  fontWeight="bold"
+                  width={[1 / 5, 1 / 5, 1 / 5]} //first value is for < 640px, second value is for < 830px,third value is for > 831px
+                  css={{
+                    display: "block"
+                  }}
+                  p={3}
+                  mx={2}
+                  my={0}
+                  bg="#f6f6ff"
+                  borderRadius={10}
+                  alignSelf="center"
+                  boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
+                >
+                  Sample Text
+                </Card>
+              </div>
+            )}
+          </div>
+
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </ErrorBoundary>
     );
   }
 }

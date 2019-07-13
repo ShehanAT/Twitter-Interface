@@ -18,6 +18,7 @@
     "moment": "^2.19.3",
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.4",
+    "pug-as-jsx-loader": "^1.0.69",
     "request": "^2.88.0",
     "serve-favicon": "^2.4.5",
     "socket.io": "^2.0.4",
