@@ -1,0 +1,39 @@
+{
+    "presets": [
+        "@babel/preset-react",
+        /*@babel/preset-react = adds support for jsx syntax*/
+        [
+            "@babel/preset-env",
+            /*@babel/preset-env = tells webpack to compile all syntax to ES5(which all browsers understand, unlike ES5(ES2015)*/
+            {
+                "targets": {
+                    "browsers": "last 2 versions"
+                },
+                "modules": false,
+                "loose": false
+            }
+        ]
+     ],
+        "plugins": [
+            "transform-class-properties",
+            "react-hot-loader/babel",
+            "syntax-dynamic-import"
+            /* since webpack HotModuleReplacement cannot presever application state, to preserve application state we need react-hot-loader(RHL)
+            This library works together with Webpack to deliver HotModuleReplacement to our application
+            */
+
+        ],
+        "env": {
+            "test": {
+                "plugins": [
+                    "transform-es2015-modules-commonjs"
+                    // commonjs and transform-class-props are for backward compatibility 
+                ]
+            },
+            "production": {
+                "plugins": [
+                    "transform-es2015-modules-commonjs"
+                ]
+            }
+        }
+}
