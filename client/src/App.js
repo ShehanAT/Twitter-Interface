@@ -9,6 +9,8 @@ import io from "socket.io-client";
 import Twitter from "./components/Twitter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
+import Content from "./components/Content";
+
 const socket = io(API_URL);
 
 export default class App extends Component {
@@ -78,8 +80,8 @@ export default class App extends Component {
       <ErrorBoundary>
         <div className="App">
           <div className={"container"}>
-            {/* If there is a user show the name and photo */}
-            {/* If no user logged in show the login with Twitter button */}
+            {/* If there is a user show the name and photo If no user logged in show
+            the login with Twitter button */}
             {name ? (
               <Twitter name={name} photo={photo} closeCard={this.closeCard} />
             ) : (
@@ -91,23 +93,6 @@ export default class App extends Component {
                   <FontAwesomeIcon icon={faTwitter} />
                   Sign in with Twitter
                 </button>
-                <Card
-                  fontSize={6}
-                  fontWeight="bold"
-                  width={[1 / 5, 1 / 5, 1 / 5]} //first value is for < 640px, second value is for < 830px,third value is for > 831px
-                  css={{
-                    display: "block"
-                  }}
-                  p={3}
-                  mx={2}
-                  my={0}
-                  bg="#f6f6ff"
-                  borderRadius={10}
-                  alignSelf="center"
-                  boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
-                >
-                  Sample Text
-                </Card>
               </div>
             )}
           </div>
