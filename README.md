@@ -21,5 +21,5 @@ module.exports =  {
 * need to figure out how to pass api data to child component in order to display the api data:white_check_mark:
 * create attractive twitter interface to render the api data in:white_check_mark:
 * style main component App.js:white_check_mark:
-* upload to heroku or take a screen recording
+* upload to github pages or take a screen recording
 
