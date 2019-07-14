@@ -85,14 +85,32 @@ export default class App extends Component {
             {name ? (
               <Twitter name={name} photo={photo} closeCard={this.closeCard} />
             ) : (
-              <div className={"button"}>
-                <button
-                  onClick={this.startAuth.bind(this)}
-                  className={`twitter ${disabled}`}
-                >
-                  <FontAwesomeIcon icon={faTwitter} />
-                  Sign in with Twitter
-                </button>
+              // (
+              //   <div className={"button"}>
+              //     <button
+              //       onClick={this.startAuth.bind(this)}
+              //       className={`twitter ${disabled}`}
+              //       id="signinButton"
+              //     >
+              //       <FontAwesomeIcon icon={faTwitter} />
+              //       Sign in with Twitter
+              //     </button>
+              //   </div>
+              // )
+
+              <div className="justify-content-center">
+                <h1>Custom Twitter Interface</h1>
+                <h3>by Shehan Atuk</h3>
+
+                <div className="center">
+                  <div
+                    className="select-button"
+                    onClick={this.startAuth.bind(this)}
+                  >
+                    <FontAwesomeIcon icon={faTwitter} />
+                    Sign in with Twitter
+                  </div>
+                </div>
               </div>
             )}
           </div>
