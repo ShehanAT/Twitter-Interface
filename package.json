@@ -1,7 +1,7 @@
 {
   "name": "api-with-node-v1",
   "version": "1.0.0",
-  "description": "",
+  "description": "``` module.exports =  {   consumer_key:         '...',   consumer_secret:      '...',   access_token:         '...',   access_token_secret:  '...',   timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.    }; ``` ### Then run npm install in the console ### Finally npm start to start the server",
   "main": "app.js",
   "scripts": {
     "start": "npm install && node app.js",
@@ -12,7 +12,7 @@
   "devDependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.2",
+    "express": "^4.17.1",
     "jade": "^1.11.0",
     "moment": "^2.19.3",
     "path": "^0.12.7",
@@ -33,5 +33,16 @@
     "passport": "^0.4.0",
     "passport-twitter": "^1.0.4",
     "request-promise": "^4.2.4"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShehanAT/Twitter-Interface.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShehanAT/Twitter-Interface/issues"
+  },
+  "homepage": "https://github.com/ShehanAT/Twitter-Interface#readme"
 }
