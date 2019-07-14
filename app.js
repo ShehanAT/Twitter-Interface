@@ -62,7 +62,7 @@ passportInit();
 //loading view engine
 // app.set("views", path.join(__dirname + "/views"));
 // app.set("view engine", "pug");
-// app.use(express.static(__dirname + "/"));
+app.use(express.static(__dirname + "/client/build"));
 // app.use(express.static(__dirname + "/css"));
 // app.use(express.static(__dirname + "/views"));
 
@@ -196,7 +196,7 @@ app.post("/testing", function(req, res, next) {
   //     res.status(500).render("error/error.pug");
   //   });
 });
-    //use node --inspect app.js to use google chrome debugger
+//use node --inspect app.js to use google chrome debugger
 server.listen(process.env.PORT || 3000, () => {
   console.log("listening...");
 });
