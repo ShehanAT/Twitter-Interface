@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CSPWebpackPlugin = require("csp-webpack-plugin");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 const modeConfiguration = (env) => require(`./build-utils/webpack.${env}`)(env);
