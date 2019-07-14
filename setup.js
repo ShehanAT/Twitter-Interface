@@ -1,7 +1,7 @@
 const providers = ["twitter"];
 const callbacks = providers.map((provider) => {
   return process.env.NODE_ENV === "production"
-    ? `https://agile-thicket-44316.herokuapp.com/${provider}/callback`
+    ? `https://delicat-fromage-49726.herokuapp.com/${provider}/callback`
     : `http://127.0.0.1:3000/${provider}/callback`;
 });
 //const [twitterURL, googleURL, facebookURL, githubURL] = callbacks <-passing the callbacks object to
@@ -10,7 +10,7 @@ const [twitterURL] = callbacks; //passing the callbacks object to only twitter f
 
 exports.CLIENT_ORIGIN =
   process.env.NODE_ENV === "production"
-    ? "https://agile-thicket-44316.herokuapp.com/"
+    ? "https://delicat-fromage-49726.herokuapp.com/"
     : "http://localhost:4000";
 
 exports.TWITTER_CONFIG = {
