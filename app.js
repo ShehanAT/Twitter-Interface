@@ -196,7 +196,7 @@ app.post("/testing", function(req, res, next) {
   //     res.status(500).render("error/error.pug");
   //   });
 });
-
+    //use node --inspect app.js to use google chrome debugger
 server.listen(process.env.PORT || 3000, () => {
   console.log("listening...");
 });
