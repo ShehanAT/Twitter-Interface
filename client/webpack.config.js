@@ -59,14 +59,15 @@ module.exports = ({ mode } = { mode: "production" }) => {
           template: "./public/index.html"
         }),
         new CSPWebpackPlugin({
-          "img-src": "* 'self'",
+          "img-src": "'self'",
           "object-src": "'none'",
           "base-uri": "'self'",
           "script-src": [
             "'unsafe-inline'",
             "'self'",
             "'unsafe-eval'",
-            "http://ajax.googleapis.com"
+            "http://ajax.googleapis.com",
+            "https://pbs.twimg.com/profile_images/1144667614054166528/hk5vxe8z.jpg"
           ],
           "worker-src": ["'self'", "blob:"]
         }),
