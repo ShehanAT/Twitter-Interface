@@ -100,7 +100,7 @@ app.set("io", io);
 const TWITTER_CONFIG = {
   consumerKey: process.env.CONSUMERKEY,
   consumerSecret: process.env.CONSUMERSECRET,
-  callbackURL: "http://127.0.0.1:3000/twitter/callback" //using https instead of http because we made https://localhost secure so https should work
+  callbackURL: "https://agile-thicket-44316.herokuapp.com/twitter/callback" //using https instead of http because we made https://localhost secure so https should work
 };
 
 //allows us to save the user into the session
