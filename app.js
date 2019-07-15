@@ -150,7 +150,7 @@ app.get("/twitter/callback", twitterAuth, (req, res) => {
   res.end();
 });
 
-app.post("/testing", function(req, res, next) {
+app.post("testing", function(req, res, next) {
   console.log(req.body.user);
   var T = new Twit(config); //configuring the config.js file
   var screen_name = req.body.user.screen_name;
