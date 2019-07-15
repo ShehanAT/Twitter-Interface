@@ -16,7 +16,7 @@
 ### Logs:
 * Added create-react-app client for React frontend:white_check_mark:
 * use #allow-insecure-localhost on chrome to bypass invalid certificate for https://localhost error:white_check_mark:
-* Create a custom twitter interface in Twitter component then inject api data to it 
+* Create a custom twitter interface in Twitter component then inject api data to it :white_check_mark:
 * need to figure out how to pass api data to child component in order to display the api data:white_check_mark:
 * create attractive twitter interface to render the api data in:white_check_mark:
 * style main component App.js:white_check_mark:
