@@ -1,16 +1,15 @@
 # Twitter-Interface
 ### TreeHouse Full Stack Javascript Techdegree Project Unit 7
-### This project needs a config.js file in the root directory of this format:
 
-```
-module.exports =  {
-  consumer_key:         '...',
-  consumer_secret:      '...',
-  access_token:         '...',
-  access_token_secret:  '...',
-  timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
-   };
-```
+### Live version url: https://agile-thicket-44316.herokuapp.com/
+
+### Instructions to run locally:
+* Clone master branch git repo 
+* add Twitter API credentials and express secret to the ```.env``` file in the root directory
+* navigate to the root directory and run ```npm install``` 
+* run ```npm start``` in root directory to start backend
+* navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
+
 ### Then run npm install in the console
 ### Finally npm start to start the server 
 
