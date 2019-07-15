@@ -7,7 +7,7 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import Content from "./Content";
 const backend_URL =
   process.env.NODE_ENV === "production"
-    ? "https://agile-thicket-44316.herokuapp.com/"
+    ? "https://agile-thicket-44316.herokuapp.com"
     : "http://localhost:3000";
 //USE THIS CLASS TO DISPLAY TWIT CONTENTS
 export default class Twitter extends Component {
