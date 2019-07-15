@@ -20,4 +20,6 @@ module.exports =  {
 * Create a custom twitter interface in Twitter component then inject api data to it 
 * need to figure out how to pass api data to child component in order to display the api data:white_check_mark:
 * create attractive twitter interface to render the api data in:white_check_mark:
-* style main component App.js
+* style main component App.js:white_check_mark:
+* upload to github pages or take a screen recording
+
