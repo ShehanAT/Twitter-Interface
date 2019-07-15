@@ -59,7 +59,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
           template: "./public/index.html"
         }),
         new CSPWebpackPlugin({
-          "img-src": "'self'",
+          "img-src": "* 'self'",
           "object-src": "'none'",
           "base-uri": "'self'",
           "script-src": [
