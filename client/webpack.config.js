@@ -63,6 +63,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
             policy: {
               "base-uri": "'self'",
               "object-src": "'none'",
+              "image-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
               "script-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
               "style-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"]
             },
