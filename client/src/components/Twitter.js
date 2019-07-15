@@ -7,7 +7,8 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import Content from "./Content";
 const backend_URL =
   process.env.NODE_ENV === "production"
-    ? "https://agile-thicket-44316.herokuapp.com/"
+    ? //"https://agile-thicket-44316.herokuapp.com/"
+      ""
     : "http://localhost:3000";
 //USE THIS CLASS TO DISPLAY TWIT CONTENTS
 export default class Twitter extends Component {
@@ -25,7 +26,7 @@ export default class Twitter extends Component {
     var user = {
       screen_name: this.props.name
     };
-    axios.post(backend_URL + "testing", { user }).then((response) => {
+    axios.post(backend_URL + "/testing", { user }).then((response) => {
       if (response.data.timelineInfo.length > 0) {
         this.setState({
           allInfo: response.data,
