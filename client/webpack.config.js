@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CSPWebpackPlugin = require("csp-webpack-plugin");
+const CspHtmlWebpackPlugin = require("csp-html-webpack-plugin");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 const modeConfiguration = (env) => require(`./build-utils/webpack.${env}`)(env);
@@ -56,21 +57,45 @@ module.exports = ({ mode } = { mode: "production" }) => {
       },
       plugins: [
         new HtmlWebpackPlugin({
-          template: "./public/index.html"
+          template: "./public/index.html",
+          cspPlugin: {
+            enabled: true,
+            policy: {
+              "base-uri": "'self'",
+              "object-src": "'none'",
+              "script-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
+              "style-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"]
+            },
+            hashEnabled: {
+              "script-src": true,
+              "style-src": true
+            },
+            nonceEnabled: {
+              "script-src": true,
+              "style-src": true
+            }
+          }
         }),
-        new CSPWebpackPlugin({
-          "img-src": "'self'",
-          "object-src": "'none'",
-          "base-uri": "'self'",
-          "script-src": [
-            "'unsafe-inline'",
-            "'self'",
-            "'unsafe-eval'",
-            "http://ajax.googleapis.com",
-            "https://pbs.twimg.com/profile_images/1144667614054166528/hk5vxe8z.jpg"
-          ],
-          "worker-src": ["'self'", "blob:"]
-        }),
+        new CspHtmlWebpackPlugin(
+          {
+            "base-uri": "'self'",
+            "object-src": "'none'",
+            "script-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
+            "style-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"]
+          },
+          {
+            enabled: true,
+            hashingMethod: "sha256",
+            hashEnabled: {
+              "script-src": true,
+              "style-src": true
+            },
+            nonceEnabled: {
+              "script-src": true,
+              "style-src": true
+            }
+          }
+        ),
         new webpack.HotModuleReplacementPlugin()
       ],
       devServer: {
