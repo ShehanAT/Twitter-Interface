@@ -4,11 +4,16 @@
 ### Live version url: https://agile-thicket-44316.herokuapp.com/
 
 ### Instructions to run locally:
-* Clone master branch git repo 
-* add Twitter API credentials and express secret to the ```.env``` file in the root directory
-* navigate to the root directory and run ```npm install``` 
-* run ```npm start``` in root directory to start backend
-* navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
+1. Go to https://developer.twitter.com/, sign in or sign up, then create a new project and get your credentials by clicking the ```Keys and Tokens``` tab of your app dashboard. 
+2. Clone master branch git repo 
+3. create a ```.env``` file in the root directory and add the following variables:
+  * ```CONSUMERKEY```: this should contain the API key value obtained from step 1
+  * ```CONSUMERSECRET```: this should contain the API secret key value obtained from step 1
+  * ```ACCESSTOKEN```: this should contain the Access token value obtained from step 1
+  * ```ACCESSTOKENSECRET```: this should contain the Access token secret value obtained from step 1
+4. navigate to the root directory and run ```npm install``` 
+5. run ```npm start``` in root directory to start backend
+6. navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
 
 ### Then run npm install in the console
 ### Finally npm start to start the server 
