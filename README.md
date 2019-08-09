@@ -11,6 +11,7 @@
   * ```CONSUMERSECRET```: this should contain the API secret key value obtained from step 1
   * ```ACCESSTOKEN```: this should contain the Access token value obtained from step 1
   * ```ACCESSTOKENSECRET```: this should contain the Access token secret value obtained from step 1
+  * ```SESSIONSECRET```: this should contain any string of your choosing, it's for express sessions.
 4. navigate to the root directory and run ```npm install``` 
 5. run ```npm start``` in root directory to start backend
 6. navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
