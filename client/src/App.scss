@@ -1,0 +1,99 @@
+// .App {
+//   text-align: center;
+// }
+
+// .App-logo {
+//   animation: App-logo-spin infinite 20s linear;
+//   height: 40vmin;
+//   pointer-events: none;
+// }
+
+// .App-header {
+//   background-color: #282c34;
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: calc(10px + 2vmin);
+//   color: white;
+// }
+
+// .App-link {
+//   color: #61dafb;
+// }
+
+// @keyframes App-logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// #signinButton {
+//   background-color: #1DA1F2;
+// }
+$size: 200px;
+$dropSize: 15px;
+$color: #1DA1F2;
+$color2: #1DA1F2;
+$dropColor: rgb(20, 79, 138);
+
+@mixin bigRedButton($size, $dropSize, $color, $color2, $dropColor){
+  width: $size;
+  height: $size - $size/10;
+  line-height: $size;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%;
+  background: $color;
+  
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color), color-stop(100%, $color2));
+  
+   background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,$color), color-stop(100%,$color2));
+  
+  box-shadow: 0 $dropSize $dropColor;
+
+  &:active {
+    box-shadow: 0 0 $dropColor;
+    @include translate(0px, $dropSize);
+    @include transition( 0.1s all ease-out);
+  }
+}
+
+@mixin translate($x, $y:0){
+-webkit-transform: translate($x, $y);
+-moz-transform:    translate($x, $y);
+-ms-transform:     translate($x, $y);
+-o-transform:      translate($x, $y);
+}
+
+@mixin transition($transition){
+-webkit-transition: $transition;  
+-moz-transition:    $transition;
+-ms-transition:     $transition; 
+-o-transition:      $transition;
+ transition:        $transition;
+}
+
+body { 
+  background: #333;
+  
+  .center {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    margin-left: -$size/2;
+    margin-top: -$size/2;
+
+    .select-button {
+      @include bigRedButton($size, $dropSize, $color, $color2, $dropColor);
+    }
+  }
+}
+
+// .text-center {
+//   text-align: center;
+// }
