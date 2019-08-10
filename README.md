@@ -4,13 +4,13 @@
 ### Live version url: https://agile-thicket-44316.herokuapp.com/
 
 ### Instructions to run locally:
-<<<<<<< HEAD
+
 * Clone master branch git repo 
 * add Twitter API credentials and express secret to the ```.env``` file in the root directory
 * navigate to the root directory and run ```npm install``` 
 * run ```npm start``` in root directory to start backend
 * navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
-=======
+
 1. Go to https://developer.twitter.com/, sign in or sign up, then create a new project and get your credentials by clicking the ```Keys and Tokens``` tab of your app dashboard. 
 2. Clone master branch git repo 
 3. create a ```.env``` file in the root directory and add the following variables:
@@ -40,12 +40,13 @@
 
 ### Future Plans:
 * Update Content component, implement more styling for App, Twitter and Content components
+* 08/09/2019: added ```Sign in with Google``` button to App component UI.
+* 08/10/2019: fixed OAuth functionality on dev environments(https://localhost:3000) for both Twitter and Google, sent backend Twitter data to client using socket.io instead of http request(it is faster).
 
-<<<<<<< HEAD
+
 
 Google Scopes for the project:
 https://mail.google.com/
 https://www.googleapis.com/auth/gmail.compose
 
-=======
->>>>>>> b41567cf59b05c991c07da83bec01968230b338f
+
