@@ -4,7 +4,10 @@ const CSPWebpackPlugin = require("csp-webpack-plugin");
 const CspHtmlWebpackPlugin = require("csp-html-webpack-plugin");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
+<<<<<<< HEAD
 const fs = require("fs");
+=======
+>>>>>>> b41567cf59b05c991c07da83bec01968230b338f
 const modeConfiguration = (env) => require(`./build-utils/webpack.${env}`)(env);
 
 module.exports = ({ mode } = { mode: "development" }) => {
@@ -104,12 +107,16 @@ module.exports = ({ mode } = { mode: "development" }) => {
       devServer: {
         hot: true,
         open: true,
+<<<<<<< HEAD
         port: 4000,
         https: {
           key: fs.readFileSync("../certs/server.key"),
           cert: fs.readFileSync("../certs/server.crt"),
           ca: fs.readFileSync("../certs/rootCA.pem"),
         }
+=======
+        port: 4000
+>>>>>>> b41567cf59b05c991c07da83bec01968230b338f
       }
     },
     modeConfiguration(mode)
