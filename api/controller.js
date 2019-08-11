@@ -36,3 +36,16 @@ exports.twitterData = (req, res) => {
         res.end();
       });
 }
+exports.gmailData = (req, res) => {
+  const io = req.app.get("io");
+  // console.log(req);
+  var accessToken = req.user;
+  var Gmail = require('node-gmail-api')
+  , gmail = new Gmail(accessToken)
+  , s = gmail.messages('label:inbox', {fields: ["id", "internalDate", "labelIds", "payload", "snippet"], max: 10})
+s.on('data', function (gmailInfo) {
+  io.in(req.session.socketId).emit("gmailData", gmailInfo);
+});
+  
+  res.end();
+}

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import loadable from "@loadable/component";
 import { API_URL } from "./config";
 import "./App.scss";
-import { Box, Card, Image, Heading, Text } from "rebass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle} from "@fortawesome/free-brands-svg-icons";
@@ -10,10 +8,7 @@ import io from "socket.io-client";
 import Twitter from "./components/Twitter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
-import Content from "./components/TwitterContent";
 import Google from "./components/Google";
-import Axios from "axios";
-
 const socket = io(API_URL);
 
 export default class App extends Component {
@@ -24,7 +19,9 @@ export default class App extends Component {
       googleUser: {},
       disabled: "",
       twitterInfo: {},
-      displayTwitter: false
+      gmailInfo: [],
+      displayTwitter: false,
+      displayGmail: false
     };
     this.popup = null;
   }
@@ -40,10 +37,15 @@ export default class App extends Component {
       //trigger route on backend to get gmail info
     })
     socket.on("twitterData", (twitterInfo) => {
-      console.log("recieved twitter data: " + twitterInfo);
         this.setState({
           twitterInfo: twitterInfo,//assigning the twitterInfo state object the data from backend ,
           displayTwitter: true
+        });
+    })
+    socket.on("gmailData", (gmailInfo) => {
+        this.setState({
+          gmailInfo: this.state.gmailInfo.concat(gmailInfo),//assigning the twitterInfo state object the data from backend ,
+          displayGmail: true
         });
     })
   }
@@ -105,6 +107,8 @@ export default class App extends Component {
   render() {
     const { twitterInfo } = this.state; //equivalent to const name = this.state.user.name, const photo = this.state.user.photo
     const {displayTwitter} = this.state;
+    const { displayGmail } = this.state;
+    const { gmailInfo }= this.state;
     const { googleName, googlePhoto } = this.state.googleUser;
     const { disabled } = this.state;
     return (
@@ -130,19 +134,23 @@ export default class App extends Component {
                 </div>
               </div>
             )}
-            {googleName ? (
-              <Google googleName={googleName} googlePhoto={googlePhoto}/>
-            ): (
-                <div className="google-div">
-                  <button 
-                  onClick={this.startAuth.bind(this)}
-                  id="googleButton"
-                  >
-                    <FontAwesomeIcon icon={faGoogle} />
-                    Sign in with Google
-                  </button>
-                </div>
-            )}
+     
+            
+             
+              <div className="google-div">
+              <button 
+              onClick={this.startAuth.bind(this)}
+              id="googleButton"
+              >
+                <FontAwesomeIcon icon={faGoogle} />
+                Sign in with Google
+              </button>
+            </div>
+            {this.state.gmailInfo.map(gmail => {
+                return (<Google gmail={gmail} />)
+            })}
+            {/* <Google gmailInfo={gmailInfo}/> */}
+           
           </div>
 
           <Footer />
