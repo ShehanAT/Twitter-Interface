@@ -22,7 +22,7 @@
 4. navigate to the root directory and run ```npm install``` 
 5. run ```npm start``` in root directory to start backend
 6. navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
->>>>>>> b41567cf59b05c991c07da83bec01968230b338f
+
 
 ### Then run npm install in the console
 ### Finally npm start to start the server 
@@ -41,7 +41,7 @@
 ### Future Plans:
 * Update Content component, implement more styling for App, Twitter and Content components
 * 08/09/2019: added ```Sign in with Google``` button to App component UI.
-* 08/10/2019: fixed OAuth functionality on dev environments(https://localhost:3000) for both Twitter and Google, sent backend Twitter data to client using socket.io instead of http request(it is faster).
+* 08/10/2019: fixed OAuth functionality on dev environments(https://localhost:3000) for both Twitter and Google, sent backend Twitter data to client using socket.io instead of http request(it is faster), added gmail snippet fetching functionality(so far only shows snippet, internal date, and id for 10 latest emails)
 
 
 
