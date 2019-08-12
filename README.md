@@ -43,7 +43,7 @@
 * 08/09/2019: added ```Sign in with Google``` button to App component UI.
 * 08/10/2019: fixed OAuth functionality on dev environments(https://localhost:3000) for both Twitter and Google, sent backend Twitter data to client using socket.io instead of http request(it is faster), added gmail snippet fetching functionality(so far only shows snippet, internal date, and id for 10 latest emails)
 * 08/11/2019: improved App component UI(picked color scheme for Twitter and Gmail sections), add data propogation using GoogleContents component
-* 08/12/2019: relevant info on gmail cards is complete, added logout button for each side
+* 08/12/2019: relevant info on gmail cards is complete, added logout button for each side, fixed logout button position
 
 
 
