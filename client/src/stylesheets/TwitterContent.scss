@@ -1,54 +1,62 @@
-.nav-pills-custom>li>a {
-	color: lightgrey;
-}
-
-.nav-pills-custom>li>a:focus,
-.nav-pills-custom>li>a:hover {
-	background: none;
-	color: grey;
-}
-
-.panel-custom>.panel-heading {
-	background: none;
-	border-bottom: none;
-}
-
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
-	background-color: #337AB7;
-}
-.form-control-nav{
-	background-color:#F0FFFF;
-  border: lightgrey solid 1px;
-	border-radius:15px;
-}
-body{
+.row-sm-3, .row-sm-6 {
 	background-color: #F0FFFF;
 }
-.navbar-default .navbar-collapse, .navbar-default{
-background-color: white;
+.panel-default{
+	text-align: center;
 }
-.panel-footer{
+// .media-body{
+// 	background-color: lightcyan;
+// }
+.panel-body{
+	display: grid;
+	grid-row-gap: 20px;
+}
+.medias {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 75%;
+	margin: 0px auto;
 	background-color: lightcyan;
+	border:5px solid #1DA1F2;
 }
-.well{
-	background-color: lightcyan;
+.media-body{
+	display: grid;
+	grid-row-gap: 20px;
+	margin-right: 5%;
 }
-a{
-	color:#60A6C1;
+.panel-title{
+	text-decoration: underline;
+	font-weight: 600;
 }
-div.panel-heading{
-	padding-top:15px;
-	padding-bottom: 0px;
+.tweet-panel-body{
+	display: grid;
+	grid-row-gap: 20px;
+	width: 75%;
+	margin: 0px auto;
+	
 }
-.form-control-feedback{
-	line-height:27px;
-}
-.panel-info{
-	border:1px lightgrey solid;
-}
-.profile-pic{
-	// width:800px;
-	// height:500px;
+.tweet-media-body{
+	width: 75%;
+    margin: 0px auto;
+	background-color: #1DA1F2;
+	border: 5px solid lightcyan;
 }
 
+.tweet-panel{
+	background: #E1E8ED;
+}
 
+.row-xs-4-tweet{
+	font-weight: 600;
+}
+
+.panel-title{
+	text-align: center;
+} 
+
+.not-row{
+	width: 75%;
+    margin: 0px auto;
+	background-color: #E1E8ED;
+	margin-bottom: 20px;
+}

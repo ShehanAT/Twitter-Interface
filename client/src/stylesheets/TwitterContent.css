@@ -1,58 +1,55 @@
-.nav-pills-custom > li > a {
-  color: lightgrey;
+.row-sm-3,
+.row-sm-6 {
+  background-color: #f0ffff;
 }
-
-.nav-pills-custom > li > a:focus,
-.nav-pills-custom > li > a:hover {
-  background: none;
-  color: grey;
+.panel-default {
+  text-align: center;
 }
-
-.panel-custom > .panel-heading {
-  background: none;
-  border-bottom: none;
+.panel-body {
+  display: grid;
+  grid-row-gap: 20px;
 }
-
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-  background-color: #337AB7;
-}
-
-.form-control-nav {
-  background-color: #F0FFFF;
-  border: lightgrey solid 1px;
-  border-radius: 15px;
-}
-
-body {
-  background-color: #F0FFFF;
-}
-
-.navbar-default .navbar-collapse, .navbar-default {
-  background-color: white;
-}
-
-.panel-footer {
+.medias {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 75%;
+  margin: 0px auto;
   background-color: lightcyan;
+  border: 5px solid #1da1f2;
 }
-
-.well {
-  background-color: lightcyan;
+.media-body {
+  display: grid;
+  grid-row-gap: 20px;
+  margin-right: 5%;
 }
-
-a {
-  color: #60A6C1;
+.panel-title {
+  text-decoration: underline;
+  font-weight: 600;
 }
-
-div.panel-heading {
-  padding-top: 15px;
-  padding-bottom: 0px;
+.tweet-panel-body {
+  display: grid;
+  grid-row-gap: 20px;
+  width: 75%;
+  margin: 0px auto;
 }
-
-.form-control-feedback {
-  line-height: 27px;
+.tweet-media-body {
+  width: 75%;
+  margin: 0px auto;
+  background-color: #1da1f2;
+  border: 5px solid lightcyan;
 }
-
-.panel-info {
-  border: 1px lightgrey solid;
+.tweet-panel {
+  background: #e1e8ed;
 }
-/*# sourceMappingURL=TwitterContent.css.map */
+.row-xs-4-tweet {
+  font-weight: 600;
+}
+.panel-title {
+  text-align: center;
+}
+.not-row {
+  width: 75%;
+  margin: 0px auto;
+  background-color: #e1e8ed;
+  margin-bottom: 20px;
+}

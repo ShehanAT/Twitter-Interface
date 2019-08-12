@@ -56,7 +56,7 @@ export default class App extends Component {
       const { popup } = this; // const { var } = this is equivalent to const popup = this.popup
       if (!popup || popup.closed || popup.closed === undefined) {
         clearInterval(check); //stop the interval if popup is closed/undefined
-        this.setState({ disabled: "disabled" }); //set disabled to true when the popup window is closed, so disable the Sign In button, use case: when user is signed in using the OAuth provider
+        //this.setState({ disabled: "disabled" }); //set disabled to true when the popup window is closed, so disable the Sign In button, use case: when user is signed in using the OAuth provider
       }
     }, 1000); //check if popup window is closed in 1 second intervals, if not closed wait until the popup window is closed to set this.state.disabled to "disabled" which signals the Sign in button to be disabled
   }
@@ -66,11 +66,11 @@ export default class App extends Component {
       if(e.target.id == "googleButton"){
         this.popup = this.openPopup("google");
         this.checkPopup();
-        this.setState({ disabled: "disabled" });
+        // this.setState({ disabled: "disabled" });
       }else if(e.target.id == "twitterButton"){
         this.popup = this.openPopup("twitter");
         this.checkPopup();
-        this.setState({ disabled: "disabled" });
+        // this.setState({ disabled: "disabled" });
       }
       //this.state.disable means the Sign in button is disabled
      // this.popup = this.openPopup(); // assigns the window object to this.popup variable
@@ -96,13 +96,24 @@ export default class App extends Component {
     height=${height}, top=${top}, left=${left}` //defining the properties of the browser window to be created
     );
   }
-  closeCard = () => {
-    this.setState({
-      user: {},
-      twitterInfo: {},
-      googleUser: {},
-      disabled: ""
-    });
+  closeCard = (e) => {
+    if(e.target.id === "gmailLogout"){
+      this.setState({
+        user: {},
+        displayGmail: false,
+        googleUser: {},
+        gmailInfo: [],
+        disabled: ""
+      });
+    }else if(e.target.id === "twitterLogout"){
+      this.setState({
+        user: {},
+        displayTwitter: false,
+        twitterInfo: {},
+        disabled: ""
+      });
+    }
+  
   };
 
   render() {
@@ -117,7 +128,8 @@ export default class App extends Component {
         <div className="App">
           
             <div className="row">
-              
+            
+        
             <h1 className="heading">Morning Interface</h1>
             <div className="split left twitter-div">
               {displayTwitter ? (
@@ -141,7 +153,7 @@ export default class App extends Component {
             <div className="split right google-div">
             <h3 className="sub__heading">Gmail Section</h3>
             {displayGmail ? (
-                <Google gmailInfo={gmailInfo} />
+                <Google gmailInfo={gmailInfo} closeCard={this.closeCard}/>
             )
                : (
                 <div className="justify-content-center">

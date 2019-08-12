@@ -21,7 +21,6 @@ export default class Twitter extends Component {
   };
 
   componentDidMount() {
-  
     this.setState({
       allInfo: this.props.twitterInfo,
       friendsList: this.props.twitterInfo.friendsList.users,
@@ -38,18 +37,16 @@ export default class Twitter extends Component {
     // only errors thrown in render() will be caught by ErrorBoundary component
     return (
       <div className="container">
-        <ButtonToolbar>
-          <Button variant="danger" onClick={this.props.closeCard}>
-            <FontAwesomeIcon
-              icon={faTimesCircle}
-              onClick={this.props.closeCard}
-            />
-            Logout
-          </Button>
-        </ButtonToolbar>
-
+         <ButtonToolbar>
+              <Button variant="danger" id="twitterLogout" onClick={this.props.closeCard}>
+                <FontAwesomeIcon
+                  icon={faTimesCircle}
+                  onClick={this.props.closeCard}
+                />
+                Logout
+              </Button>
+         </ButtonToolbar>
         <TwitterContent
-          
           photo={this.props.photo}
           friendsList={this.state.friendsList}
           followerList={this.state.followerList}
