@@ -1,58 +1,27 @@
-// .App {
-//   text-align: center;
-// }
 
-// .App-logo {
-//   animation: App-logo-spin infinite 20s linear;
-//   height: 40vmin;
-//   pointer-events: none;
-// }
-
-// .App-header {
-//   background-color: #282c34;
-//   min-height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: calc(10px + 2vmin);
-//   color: white;
-// }
-
-// .App-link {
-//   color: #61dafb;
-// }
-
-// @keyframes App-logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
-
-// #signinButton {
-//   background-color: #1DA1F2;
-// }
 $size: 200px;
 $dropSize: 15px;
-$color: #1DA1F2;
-$color2: #1DA1F2;
-$dropColor: rgb(20, 79, 138);
+$twitter-color: #1DA1F2;
+$twitter-color2: #1DA1F2;
+$twitter-dropColor: #008abe;
 
-@mixin bigRedButton($size, $dropSize, $color, $color2, $dropColor){
+
+$google-color: #DB4437;
+$google-color2: #4285F4;
+$google-dropColor: #B23121;
+
+@mixin bigButton($size, $dropSize, $twitter-color, $twitter-color2, $dropColor){
   width: $size;
   height: $size - $size/10;
   line-height: $size;
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
-  background: $color;
+  background: $twitter-color;
   
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color), color-stop(100%, $color2));
+ // background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $twitter-color), color-stop(100%, $twitter-color2));
   
-   background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,$color), color-stop(100%,$color2));
+   background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,$twitter-color), color-stop(100%,$twitter-color2));
   
   box-shadow: 0 $dropSize $dropColor;
 
@@ -81,19 +50,51 @@ $dropColor: rgb(20, 79, 138);
 body { 
   background: #333;
   
-  .center {
-    left: 50%;
-    top: 50%;
+  .twitter-center {
+    left: 200px;
+    top: 150px;
     position: absolute;
-    margin-left: -$size/2;
-    margin-top: -$size/2;
-
-    .select-button {
-      @include bigRedButton($size, $dropSize, $color, $color2, $dropColor);
+  
+    .twitter-select-button {
+      @include bigButton($size, $dropSize, $twitter-color, $twitter-color2, $twitter-dropColor);
+    }
+  }
+  .google-center {
+    left: 200px;
+    top: 150px;
+    position: absolute;
+  
+    .google-select-button {
+      @include bigButton($size, $dropSize, $google-color, $google-color2, $google-dropColor);
     }
   }
 }
 
-// .text-center {
-//   text-align: center;
-// }
+.heading {
+  text-align: center;
+}
+.sub__heading{
+  text-align: center;
+}
+#twitter__heading{
+  color: #ffffff;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.left {
+  left: 0;
+  background-color: #AAB8C2;
+  
+}
+.right {
+  right: 0;
+  background-color: #E2E2E2;
+}

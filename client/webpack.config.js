@@ -31,6 +31,12 @@ module.exports = ({ mode } = { mode: "development" }) => {
             test: /\.pug$/,
             use: ["babel-loader", "pug-as-jsx-loader"]
           },
+            {
+              test: /\.css$/,
+              use: ['style-loader', 'css-loader']
+            },
+          
+        
           // {
           //   test: /\.scss$/,
           //   use: [

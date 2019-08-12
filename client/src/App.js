@@ -9,6 +9,7 @@ import Twitter from "./components/Twitter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
 import Google from "./components/Google";
+import "bootstrap/dist/css/bootstrap.min.css";
 const socket = io(API_URL);
 
 export default class App extends Component {
@@ -114,47 +115,51 @@ export default class App extends Component {
     return (
       <ErrorBoundary>
         <div className="App">
-          <div className={"container"}>
-            {displayTwitter ? (
-              <Twitter twitterInfo={twitterInfo} closeCard={this.closeCard} />
-            ) : (
-              <div className="justify-content-center">
-                <h1>Custom Twitter Interface</h1>
-                <h3>by Shehan Atuk</h3>
-
-                <div className="center">
-                  <div
-                    className="select-button"
-                    onClick={this.startAuth.bind(this)}
-                    id="twitterButton"
-                  >
-                    <FontAwesomeIcon icon={faTwitter} />
-                    Sign in with Twitter
+          
+            <div className="row">
+              
+            <h1 className="heading">Morning Interface</h1>
+            <div className="split left twitter-div">
+              {displayTwitter ? (
+                <Twitter twitterInfo={twitterInfo} closeCard={this.closeCard} />
+              ) : (
+                <div className="justify-content-center">
+                  <h3 className="sub__heading" id="twitter__heading">Twitter Section</h3>
+                  <div className="twitter-center">
+                    <div
+                      className="twitter-select-button"
+                      onClick={this.startAuth.bind(this)}
+                      id="twitterButton"
+                    >
+                      <FontAwesomeIcon icon={faTwitter} />
+                      Sign in with Twitter
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-     
-            
-             
-              <div className="google-div">
-              <button 
-              onClick={this.startAuth.bind(this)}
-              id="googleButton"
-              >
-                <FontAwesomeIcon icon={faGoogle} />
-                Sign in with Google
-              </button>
+              )}
             </div>
-            {this.state.gmailInfo.map(gmail => {
+            <div className="split right google-div">
+                <div className="justify-content-center">
+                <h3 className="sub__heading">Gmail Section</h3>
+                  <div className="google-center">
+                    <div 
+                    onClick={this.startAuth.bind(this)}
+                    id="googleButton"
+                    className="google-select-button"
+                    >
+                      <FontAwesomeIcon icon={faGoogle} />
+                      Sign in with Google
+                    </div>
+                  </div>
+                  {this.state.gmailInfo.map(gmail => {
                 return (<Google gmail={gmail} />)
             })}
-            {/* <Google gmailInfo={gmailInfo}/> */}
-           
+                </div>
+            </div>
+            </div>
           </div>
 
           <Footer />
-        </div>
       </ErrorBoundary>
     );
   }
