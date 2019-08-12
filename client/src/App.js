@@ -20,9 +20,60 @@ export default class App extends Component {
       googleUser: {},
       disabled: "",
       twitterInfo: {},
-      gmailInfo: [],
+      gmailInfo: [
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "1"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "2"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "3"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "4"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "5"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "6"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "7"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "8"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "9"
+        },
+        {
+          snippet: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem ",
+          internalDate: "1370001284000",
+          id: "10"
+        },
+      ],
       displayTwitter: false,
-      displayGmail: false
+      displayGmail: true
     };
     this.popup = null;
   }
@@ -139,8 +190,13 @@ export default class App extends Component {
               )}
             </div>
             <div className="split right google-div">
+            <h3 className="sub__heading">Gmail Section</h3>
+            {displayGmail ? (
+                <Google gmailInfo={gmailInfo} />
+            )
+               : (
                 <div className="justify-content-center">
-                <h3 className="sub__heading">Gmail Section</h3>
+                
                   <div className="google-center">
                     <div 
                     onClick={this.startAuth.bind(this)}
@@ -151,14 +207,12 @@ export default class App extends Component {
                       Sign in with Google
                     </div>
                   </div>
-                  {this.state.gmailInfo.map(gmail => {
-                return (<Google gmail={gmail} />)
-            })}
                 </div>
-            </div>
-            </div>
-          </div>
-
+               )
+            }
+          </div> 
+         </div>
+        </div>
           <Footer />
       </ErrorBoundary>
     );
