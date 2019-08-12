@@ -132,11 +132,11 @@ export default class App extends Component {
         
             <h1 className="heading">Morning Interface</h1>
             <div className="split left twitter-div">
+            <h3 className="sub__heading">Twitter Section</h3>
               {displayTwitter ? (
                 <Twitter twitterInfo={twitterInfo} closeCard={this.closeCard} />
               ) : (
                 <div className="justify-content-center">
-                  <h3 className="sub__heading" id="twitter__heading">Twitter Section</h3>
                   <div className="twitter-center">
                     <div
                       className="twitter-select-button"
