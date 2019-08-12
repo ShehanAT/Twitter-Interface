@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../stylesheets/GoogleContent.scss";
+import { ReactComponent as GmailLogo} from "../img/gmail.svg";
 export default class GoogleContent extends Component {
   constructor(){
     super();
@@ -16,12 +17,25 @@ export default class GoogleContent extends Component {
   }
   
   render() {
-
     return(
-      <div className={"gmail__id" + this.props.id}>
-        <p>Snippet: {this.props.gmail.snippet}</p>
-        <p>Internal Date: {this.props.gmail.internalDate}</p>
-        <p>Id: {this.props.gmail.id}</p>
+      <div className="gmail__card" >
+        <GmailLogo className="gmail__logo "/>
+        <li >Subject : {this.props.gmail.payload.headers.find((value) => {
+          if(value.name === "Subject"){
+            return value.value;
+          }
+        }).value}</li>
+         <li >Snippet: {this.props.gmail.snippet}</li>
+        <li className="gmailLabel__container">Labels: 
+          {this.props.gmail.labelIds.map((label,index) => {
+            return <span className="gmailLabel" key={index}>{label + " "}</span>
+          })}
+        </li>
+        <li>Sent From: {this.props.gmail.payload.headers.find((value) => {
+          if(value.name === "From"){
+            return value.value;
+          }
+        }).value}</li>
       </div>
     );
   }

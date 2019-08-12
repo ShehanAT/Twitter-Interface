@@ -1,11 +1,13 @@
 body {
   background: #333;
 }
+
 body .twitter-center {
   left: 200px;
   top: 150px;
   position: absolute;
 }
+
 body .twitter-center .twitter-select-button {
   width: 200px;
   height: 180px;
@@ -13,33 +15,29 @@ body .twitter-center .twitter-select-button {
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
-  background: #1da1f2;
-  background-image: -moz-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0%, #1da1f2),
-    color-stop(100%, #1da1f2)
-  );
-  box-shadow: 0 15px #008abe;
+  background: #1DA1F2;
+  background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%, #1DA1F2), color-stop(100%, #1DA1F2));
+  -webkit-box-shadow: 0 15px #008abe;
+          box-shadow: 0 15px #008abe;
 }
+
 body .twitter-center .twitter-select-button:active {
-  box-shadow: 0 0 #008abe;
+  -webkit-box-shadow: 0 0 #008abe;
+          box-shadow: 0 0 #008abe;
   -webkit-transform: translate(0px, 15px);
   -moz-transform: translate(0px, 15px);
   -ms-transform: translate(0px, 15px);
   -o-transform: translate(0px, 15px);
   -webkit-transition: 0.1s all ease-out;
-  -moz-transition: 0.1s all ease-out;
-  -ms-transition: 0.1s all ease-out;
-  -o-transition: 0.1s all ease-out;
   transition: 0.1s all ease-out;
 }
+
 body .google-center {
   left: 200px;
   top: 150px;
   position: absolute;
 }
+
 body .google-center .google-select-button {
   width: 200px;
   height: 180px;
@@ -47,37 +45,35 @@ body .google-center .google-select-button {
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
-  background: #db4437;
-  background-image: -moz-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0%, #db4437),
-    color-stop(100%, #4285f4)
-  );
-  box-shadow: 0 15px #b23121;
+  background: #DB4437;
+  background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%, #DB4437), color-stop(100%, #4285F4));
+  -webkit-box-shadow: 0 15px #B23121;
+          box-shadow: 0 15px #B23121;
 }
+
 body .google-center .google-select-button:active {
-  box-shadow: 0 0 #b23121;
+  -webkit-box-shadow: 0 0 #B23121;
+          box-shadow: 0 0 #B23121;
   -webkit-transform: translate(0px, 15px);
   -moz-transform: translate(0px, 15px);
   -ms-transform: translate(0px, 15px);
   -o-transform: translate(0px, 15px);
   -webkit-transition: 0.1s all ease-out;
-  -moz-transition: 0.1s all ease-out;
-  -ms-transition: 0.1s all ease-out;
-  -o-transition: 0.1s all ease-out;
   transition: 0.1s all ease-out;
 }
+
 .heading {
   text-align: center;
 }
+
 .sub__heading {
   text-align: center;
 }
+
 #twitter__heading {
   color: #ffffff;
 }
+
 .split {
   height: 100%;
   width: 50%;
@@ -87,11 +83,14 @@ body .google-center .google-select-button:active {
   overflow-x: hidden;
   padding-top: 20px;
 }
+
 .left {
   left: 0;
-  background-color: #aab8c2;
+  background-color: #AAB8C2;
 }
+
 .right {
   right: 0;
-  background-color: #e2e2e2;
+  background-color: #E2E2E2;
 }
+/*# sourceMappingURL=App.css.map */

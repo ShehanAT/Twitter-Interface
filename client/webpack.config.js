@@ -28,23 +28,24 @@ module.exports = ({ mode } = { mode: "development" }) => {
             }
           },
           {
-            test: /\.pug$/,
-            use: ["babel-loader", "pug-as-jsx-loader"]
+            test: /\.html$/,
+            exclude: /node_modules/,
+            loader: 'html-loader'
+          },
+          {
+            test: /\.svg$/,
+            use: ['@svgr/webpack']
           },
             {
               test: /\.css$/,
               use: ['style-loader', 'css-loader']
             },
-          
-        
-          // {
-          //   test: /\.scss$/,
-          //   use: [
-          //     "style-loader", //creates style nodes from JS strings
-          //     "css-loader", //translates CSS into CommonJS
-          //     "sass-loader" //compiles sass to css, using Node Sass by default
-          //   ]
-          // },
+            {
+              test: /\.(png|svg|jpg|gif)$/,
+              use: [
+                'file-loader'
+              ]
+            },
           {
             test: /\.(jpg|png)$/,
             use: [
@@ -56,21 +57,18 @@ module.exports = ({ mode } = { mode: "development" }) => {
               }
             ]
           },
-          {
-            test: /\.svg$/,
-            loader: "svg-inline-loader"
-          }
+       
         ]
       },
       plugins: [
         new HtmlWebpackPlugin({
           template: "./public/index.html",
           cspPlugin: {
-            enabled: true,
+            enabled: false,
             policy: {
               "base-uri": "'self'",
               "object-src": "'none'",
-              "image-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
+              "image-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'", "https://localhost:4000"],
               "script-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
               "style-src": ["'unsafe-inline'", "'self'", "'unsafe-eval'"]
             },

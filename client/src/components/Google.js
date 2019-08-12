@@ -8,7 +8,7 @@ export default class Google extends Component {
             <div className="gmail__container">
             {this.props.gmailInfo.map((gmail, index) => {
                 
-                return <GoogleContent gmail={gmail} id={index}/>
+                return <GoogleContent gmail={gmail} key={index}/>
             })}
             </div>
            
