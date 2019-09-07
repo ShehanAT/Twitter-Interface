@@ -5,15 +5,12 @@
 
 ### Instructions to run locally:
 
-* Clone master branch git repo 
-* add Twitter API credentials and express secret to the ```.env``` file in the root directory
-* navigate to the root directory and run ```npm install``` 
-* run ```npm start``` in root directory to start backend
-* navigate to ```client``` folder and run ```npm run start:dev``` to start front-end client 
 
 1. Go to https://developer.twitter.com/, sign in or sign up, then create a new project and get your credentials by clicking the ```Keys and Tokens``` tab of your app dashboard. 
 2. Clone master branch git repo 
-3. create a ```.env``` file in the root directory and add the following variables:
+3. Follow instructions for enabling HTTPS on localhost by following [this guide](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/)
+4. run ```mkdir certs``` in the project root directory, add ```server.key``` and ```server.crt``` from step 3 to ```certs``` folder. 
+3. create a ```.env``` file in the project root directory and add the following variables:
   * ```CONSUMERKEY```: this should contain the API key value obtained from step 1
   * ```CONSUMERSECRET```: this should contain the API secret key value obtained from step 1
   * ```ACCESSTOKEN```: this should contain the Access token value obtained from step 1
