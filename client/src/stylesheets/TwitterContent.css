@@ -1,0 +1,55 @@
+.row-sm-3,
+.row-sm-6 {
+  background-color: #f0ffff;
+}
+.panel-default {
+  text-align: center;
+}
+.panel-body {
+  display: grid;
+  grid-row-gap: 20px;
+}
+.medias {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 75%;
+  margin: 0px auto;
+  background-color: lightcyan;
+  border: 5px solid #1da1f2;
+}
+.media-body {
+  display: grid;
+  grid-row-gap: 20px;
+  margin-right: 5%;
+}
+.panel-title {
+  text-decoration: underline;
+  font-weight: 600;
+}
+.tweet-panel-body {
+  display: grid;
+  grid-row-gap: 20px;
+  width: 75%;
+  margin: 0px auto;
+}
+.tweet-media-body {
+  width: 75%;
+  margin: 0px auto;
+  background-color: #1da1f2;
+  border: 5px solid lightcyan;
+}
+.tweet-panel {
+  background: #e1e8ed;
+}
+.row-xs-4-tweet {
+  font-weight: 600;
+}
+.panel-title {
+  text-align: center;
+}
+.not-row {
+  width: 75%;
+  margin: 0px auto;
+  background-color: #e1e8ed;
+  margin-bottom: 20px;
+}

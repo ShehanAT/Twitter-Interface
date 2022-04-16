@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,iBAAiB,CAAA;EACb,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,GAAG;EACd,MAAM,EAAE,QAAQ;EAChB,SAAS,EAAE,IAAI;CAClB;;AACD,AAAA,YAAY,CAAA;EACR,KAAK,EAAE,EAAE;CACZ",
+    "sources": [
+        "Google.scss"
+    ],
+    "names": [],
+    "file": "Google.css"
+}

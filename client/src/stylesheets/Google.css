@@ -1,0 +1,13 @@
+.gmail__container {
+  display: grid;
+  max-width: 75%;
+  margin: 0px auto;
+  grid-row-gap: 20px;
+  font-size: 12px;
+}
+.gmail__icon {
+  width: 5%;
+}
+#gmailLogout {
+  margin-left: 45%;
+}

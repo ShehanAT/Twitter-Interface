@@ -1,0 +1,100 @@
+
+$size: 200px;
+$dropSize: 15px;
+$twitter-color: #1DA1F2;
+$twitter-color2: #1DA1F2;
+$twitter-dropColor: #008abe;
+
+
+$google-color: #DB4437;
+$google-color2: #4285F4;
+$google-dropColor: #B23121;
+
+@mixin bigButton($size, $dropSize, $twitter-color, $twitter-color2, $dropColor){
+  width: $size;
+  height: $size - $size/10;
+  line-height: $size;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%;
+  background: $twitter-color;
+  
+ // background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $twitter-color), color-stop(100%, $twitter-color2));
+  
+   background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,$twitter-color), color-stop(100%,$twitter-color2));
+  
+  box-shadow: 0 $dropSize $dropColor;
+
+  &:active {
+    box-shadow: 0 0 $dropColor;
+    @include translate(0px, $dropSize);
+    @include transition( 0.1s all ease-out);
+  }
+}
+
+@mixin translate($x, $y:0){
+-webkit-transform: translate($x, $y);
+-moz-transform:    translate($x, $y);
+-ms-transform:     translate($x, $y);
+-o-transform:      translate($x, $y);
+}
+
+@mixin transition($transition){
+-webkit-transition: $transition;  
+-moz-transition:    $transition;
+-ms-transition:     $transition; 
+-o-transition:      $transition;
+ transition:        $transition;
+}
+
+body { 
+  background: #333;
+  
+  .twitter-center {
+    left: 200px;
+    top: 150px;
+    position: absolute;
+  
+    .twitter-select-button {
+      @include bigButton($size, $dropSize, $twitter-color, $twitter-color2, $twitter-dropColor);
+    }
+  }
+  .google-center {
+    left: 200px;
+    top: 150px;
+    position: absolute;
+  
+    .google-select-button {
+      @include bigButton($size, $dropSize, $google-color, $google-color2, $google-dropColor);
+    }
+  }
+}
+
+.heading {
+  text-align: center;
+}
+.sub__heading{
+  text-align: center;
+}
+#twitter__heading{
+  color: #ffffff;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.left {
+  left: 0;
+  background-color: #AAB8C2;
+  
+}
+.right {
+  right: 0;
+  background-color: #E2E2E2;
+}
