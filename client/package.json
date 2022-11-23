@@ -46,7 +46,7 @@
     "request": "^2.88.0",
     "sass-loader": "^7.1.0",
     "serve-favicon": "^2.4.5",
-    "socket.io": "^2.0.4",
+    "socket.io": "^2.5.0",
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "svg-loader": "0.0.2",
